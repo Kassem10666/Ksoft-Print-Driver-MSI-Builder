@@ -1,13 +1,13 @@
 # KSoft Print Driver MSI Package Generator 🖨️📦
 
-An enterprise-grade desktop tool and automated build engine designed to convert Xerox (and other vendor) printer drivers, network ports, and saved print configurations into fully silent, standalone **MSI installation packages** using **WiX Toolset v3.14**.
+An enterprise-grade desktop tool and automated build engine designed to convert Xerox (and other vendor) printer drivers, network ports, and saved print configurations into fully silent, standalone **MSI installation packages**
 
 ---
 
 ## 🌟 Key Features
 
 * **🎨 Sleek IT Admin Wizard UI:**
-  * Dark Mode theme (`#151515` background) with Xerox Corporate Red (`#D92231`) accents.
+  * Dark Mode theme (`#151515` background) with  Red (`#D92231`) accents.
   * 4-step wizard: `1. Config`, `2. Drivers`, `3. Settings`, `4. Build`.
   * Real-time package review summary and live build console.
 
@@ -104,4 +104,4 @@ msiexec.exe /x "Xerox_MFP_Installer.msi" /qn /norestart
 ---
 
 ## 📄 License
-Internal Enterprise Tool - (C) KSoft Enterprise. All rights reserved.
+Internal Enterprise Tool - (C) KSoft . All rights reserved.
