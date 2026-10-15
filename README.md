@@ -1,6 +1,6 @@
 # KSoft Printer MSI Package Generator 🖨️📦
 
-An enterprise-grade desktop tool and automated build engine designed to convert Xerox (and other vendor) printer drivers, network ports, and saved print configurations into fully silent, standalone **MSI installation packages** using **WiX Toolset v3.14**.
+An enterprise-grade desktop tool and automated build engine designed to convert Xerox (and other vendor) printer drivers, network ports, and saved print configurations into fully silent, standalone **MSI installation packages**.
 
 ---
 
