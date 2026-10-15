@@ -20,7 +20,6 @@ An enterprise-grade desktop tool and automated build engine designed to convert 
   * Filters out internal INF directives like `CopyFiles` to show only valid printer models.
 
 * **🛡️ Protected PowerShell Runtime:**
-  * Both installation (`run.ps1`) and uninstallation (`uninstall.ps1`) scripts are cryptographically packed and decompressed in RAM (In-Memory Execution).
   * No plaintext IPs, ports, or registry commands are exposed when opened in text editors.
   * Clean uninstallation via Windows Programs & Features is 100% preserved.
 
@@ -32,7 +31,7 @@ An enterprise-grade desktop tool and automated build engine designed to convert 
 
 * **🚀 Standalone All-In-One Executable:**
   * Packaged into a single zero-dependency executable (`PrinterMSIBuilder.exe`).
-  * Embedded WiX binaries and server engine — runs without requiring Python or external tool installations.
+  * Embedded server engine — runs without requiring Python or external tool installations.
 
 ---
 
