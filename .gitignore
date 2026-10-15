@@ -1,0 +1,37 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyInstaller build artifacts
+build/
+web_builder/build/
+web_builder/dist/
+*.spec
+
+# Temporary WiX and MSI build artifacts
+builds/
+web_builder/builds/
+*.wixobj
+*.wixpdb
+*.tmp
+*.log
+
+# Environments
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# User scratch and logs
+scratch/
+InstallLog_*.txt
+UninstallLog_*.txt

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="DRIVERDIR">
+            <Component Id="cmp584A5DBE71FF0A4140ABB10A6FFE9527" Guid="{84971C69-EA21-457E-B0E9-F2795E7C4F92}">
+                <File Id="fil4B23A8766807AC9ED20848944668D70F" KeyPath="yes" Source="$(var.DriverDir)\x2PULL.ppd" />
+            </Component>
+            <Component Id="cmpFD505B328D0774C01E9E87F8D477A259" Guid="{7FEB0A65-49AC-4455-894A-B1AE9C7EFE5F}">
+                <File Id="fil9EC82C7C997BD7AC0ADCE0B7DA82B999" KeyPath="yes" Source="$(var.DriverDir)\x3coms080.dll" />
+            </Component>
+            <Component Id="cmp520148FCBF387BD5FC3C9D073706E784" Guid="{DEFD5A26-129F-4A0C-AD5D-086821085F5E}">
+                <File Id="fil908E50AFDD4A28795090A22B8B68EA3B" KeyPath="yes" Source="$(var.DriverDir)\x3core080.dll" />
+            </Component>
+            <Component Id="cmp97E8E593044D4D3C73C67ED3B97A9902" Guid="{6B5B124C-BE36-4F07-93AF-45124EA7F48B}">
+                <File Id="fil8CF8D260836E901B0B51F7E436D5DC47" KeyPath="yes" Source="$(var.DriverDir)\x3fput080.dll" />
+            </Component>
+            <Component Id="cmpF3E12F1B1FCD22757821E5CBF673B7F6" Guid="{B8349DCE-BD21-4D77-BF0B-136D6E3F1BF2}">
+                <File Id="filFB73D2F6F9548AE46C374409D6AD4EEE" KeyPath="yes" Source="$(var.DriverDir)\x3gui080.dll" />
+            </Component>
+            <Component Id="cmp9CBD5B21B9DA0834F6604B7B2C66A5FC" Guid="{A12E7079-AA69-4147-B9F2-8F5F65298D91}">
+                <File Id="fil274A9CFE0BFEB7329F01E76F3A417A51" KeyPath="yes" Source="$(var.DriverDir)\x3jobt080.exe" />
+            </Component>
+            <Component Id="cmp9FEE0830A75690660B61499AFE5D8A42" Guid="{1EEF0DAA-6535-47BE-A5CF-30378D552CCB}">
+                <File Id="fil0F75ABCEB34B85FD95E9FE063CD99063" KeyPath="yes" Source="$(var.DriverDir)\x3ptpc080.dll" />
+            </Component>
+            <Component Id="cmpC13F5034F22A591E89387A4B52D6FD1F" Guid="{CC6BF85C-0A24-4AF4-BE72-198E84A61DBA}">
+                <File Id="fil80C9A50C99B6A9DC399E39F02D472697" KeyPath="yes" Source="$(var.DriverDir)\x3PULL080.cab" />
+            </Component>
+            <Component Id="cmp445AE383D0F9271621E84F5D1111C843" Guid="{D2246AC1-53B0-4D09-9BE9-0AB1555BA332}">
+                <File Id="filEFBD54F4A7438A9558FD5963CEF98F0D" KeyPath="yes" Source="$(var.DriverDir)\x3PULLp.cat" />
+            </Component>
+            <Component Id="cmp88AB71BB3C06F7AEA87714D10AE80BC2" Guid="{FBB2A13E-746D-4867-91C9-53812382C362}">
+                <File Id="filDFC5105BB7AF692AADD72BB3AAB26249" KeyPath="yes" Source="$(var.DriverDir)\x3PULLP.inf" />
+            </Component>
+            <Component Id="cmp256E68B2CA650DE5687B87088C6C93E7" Guid="{5013D6A5-63CA-4C55-AE9E-602A030E83F0}">
+                <File Id="fil8FA9CA28D75427A38BAB9129E8A0705D" KeyPath="yes" Source="$(var.DriverDir)\x3rnut080.dll" />
+            </Component>
+            <Component Id="cmpF203C5C75AC2D80ADB39813E87F8AAF0" Guid="{537622ED-D03A-4FB3-A02C-4E77C944FB5F}">
+                <File Id="fil0417B121F4D7C3AB068B442DCFE6082F" KeyPath="yes" Source="$(var.DriverDir)\x3rps080.dll" />
+            </Component>
+            <Component Id="cmpDCD6102231D107A0B873448C42EBA486" Guid="{E27EDA0F-68A0-4545-887B-AC1329827B80}">
+                <File Id="filF66DF348B3B594FC296445ED43548483" KeyPath="yes" Source="$(var.DriverDir)\x3thpr080.exe" />
+            </Component>
+            <Component Id="cmpA13DCA152A9E025B71D348B1ED0D22F1" Guid="{72235E3D-9350-497D-828E-BA37FBB4B392}">
+                <File Id="filBA82E8E55DB4934DF301E728587EB8D7" KeyPath="yes" Source="$(var.DriverDir)\x3txt080.cab" />
+            </Component>
+            <Component Id="cmpC89CEB86DBB7ABE575FEB399D188855A" Guid="{20ED41A6-1886-40EA-BB89-F5EE4F2C6AEB}">
+                <File Id="fil921FB60A9644CB9729CF1A746D702514" KeyPath="yes" Source="$(var.DriverDir)\x3up080.dll" />
+            </Component>
+            <Component Id="cmp1DCE830CD5B6FAD705988D81B054CCA0" Guid="{02001D58-64CD-4852-80C1-9C4655D309B5}">
+                <File Id="fil89D40D8D13D097E0C463C9BCFD3CCBE7" KeyPath="yes" Source="$(var.DriverDir)\x3util080.dll" />
+            </Component>
+            <Component Id="cmp6F5FD4B9BBCFB9B449CE8BF3B44FC4DC" Guid="{6CAE4BAA-D239-4E56-9B5D-D3415336122F}">
+                <File Id="filD8CD76F620C3B0A6204A23D908F66534" KeyPath="yes" Source="$(var.DriverDir)\x3wftu080.dll" />
+            </Component>
+            <Component Id="cmpE061BD7D5459D993F5A9845A9CBE9C2A" Guid="{82A4370E-C44B-4753-A0E2-841C3F553B3E}">
+                <File Id="fil21083FD1A00D85B10D5C47F4EB31ECF4" KeyPath="yes" Source="$(var.DriverDir)\x5lrs.dll" />
+            </Component>
+            <Component Id="cmp27F34BBD50FCB96AA7803A218A78E008" Guid="{FD2DDF58-7A53-4E18-AA2B-3D7D79B0E0DD}">
+                <File Id="fil590DC70A98995F59E6E0B244FBE1AA14" KeyPath="yes" Source="$(var.DriverDir)\x5lrsl.dll" />
+            </Component>
+            <Component Id="cmpB0C1A91ADE72CC92D28F6D906ECD025F" Guid="{1C3462F1-FAD6-4A3E-BDCC-A7D76E45B6B2}">
+                <File Id="fil696B5C0510A120B851975AB5F9A1A705" KeyPath="yes" Source="$(var.DriverDir)\x5pp.dll" />
+            </Component>
+            <Component Id="cmp85892517A40C507161D095203CC94D32" Guid="{E7800E75-F1B1-484C-9FBA-83C03669E32B}">
+                <File Id="filF4781AF32FB1785EA686A1804A4251C2" KeyPath="yes" Source="$(var.DriverDir)\x5print.dll" />
+            </Component>
+            <Component Id="cmp2307677B72F8E19F721D6238623CC949" Guid="{E95F35EA-23B1-4645-B3DA-A814E7928B45}">
+                <File Id="filF0CB7A04C572253FCA04DD5D7B4F4F3A" KeyPath="yes" Source="$(var.DriverDir)\xPULLP.tag" />
+            </Component>
+            <Component Id="cmpEF55D884E7B23ECE852D74E46BDCF152" Guid="{0125314D-2BB7-4C29-B4D4-2DA288FC1AD4}">
+                <File Id="fil3F27727B674BE064C4FC40C75512BD8F" KeyPath="yes" Source="$(var.DriverDir)\xPULLp080.cfg" />
+            </Component>
+            <Component Id="cmpB44F8EE14E1E61ABE3804D850E3FCA1F" Guid="{B8F9751F-BA25-442E-ABC3-D655D5DB1741}">
+                <File Id="filC7C5A450FC6C78263DE37465BA0C0F01" KeyPath="yes" Source="$(var.DriverDir)\xPULLp080.ini" />
+            </Component>
+            <Component Id="cmpC8F451B14E9585151E877E34351EDAA6" Guid="{21193EB7-629B-4FCB-8369-81EFDF75090E}">
+                <File Id="fil4E5671AC84962841B6E60DC8915ECAD8" KeyPath="yes" Source="$(var.DriverDir)\xPULLp080.p3p" />
+            </Component>
+            <Component Id="cmp7F058F7A3A3AA41A1A3E206DD1A2D3F7" Guid="{8A750F47-8D00-4AC4-97AF-24BFA597A8B2}">
+                <File Id="fil7CA599C7EB53454201C9A84CD07C0C9B" KeyPath="yes" Source="$(var.DriverDir)\xPULLp0N.cfg" />
+            </Component>
+            <Component Id="cmp02B364AE282980BDA216464BD37267B7" Guid="{E3D06250-8413-4442-B435-9584213770F3}">
+                <File Id="fil2C51AF27DB5E1C451A7101E64E96F1E2" KeyPath="yes" Source="$(var.DriverDir)\xPULLp0U.cfg" />
+            </Component>
+            <Component Id="cmpD2519931D2FD88DB7C6D908511780C69" Guid="{AB8FCFF3-D414-4014-8D57-74514B67BC6C}">
+                <File Id="fil93A80EF60B58270453178BC0EF4D15F4" KeyPath="yes" Source="$(var.DriverDir)\xPULLp23.cfg" />
+            </Component>
+            <Component Id="cmpFA565595E850CCF3FA680CD1B805A5D7" Guid="{E7207CFE-C496-4A6F-A421-87BD976C88FE}">
+                <File Id="filCD97D99D8CEEF1CE8C297C502DCDF68C" KeyPath="yes" Source="$(var.DriverDir)\xPULLp2J.cfg" />
+            </Component>
+            <Component Id="cmpB9F2D9BFA2D6179BD6AFDB803E722965" Guid="{3E0FB3C3-D3F4-4733-9CEB-809DB97A3610}">
+                <File Id="filD41F277B44DD7713E40A93C5461DA778" KeyPath="yes" Source="$(var.DriverDir)\xPULLpTU.cfg" />
+            </Component>
+            <Component Id="cmpC3D4E1AACF016C4A06DD256367119434" Guid="{27E7B9CE-4A4F-4DC8-A9F4-51BAE0E0DE68}">
+                <File Id="fil1B54C84EDE0B62B2A41F80948952A985" KeyPath="yes" Source="$(var.DriverDir)\xPULLpUC.cfg" />
+            </Component>
+            <Component Id="cmp081D9753A00A5E34075813E5E3F8FE43" Guid="{CD78E086-CF11-48A2-B8CE-ED5B06B2476C}">
+                <File Id="fil90B4F19CE88817FF6AC833D61235993F" KeyPath="yes" Source="$(var.DriverDir)\xPULLpUK.cfg" />
+            </Component>
+            <Component Id="cmpB1FFE3758CFD997B05C1C073670FE718" Guid="{A3583B5A-67B1-40FD-91F5-459091BC2D1A}">
+                <File Id="filB373253CB5B3D719E52F2C62E7F3780D" KeyPath="yes" Source="$(var.DriverDir)\xPULLpUY.cfg" />
+            </Component>
+            <Component Id="cmp109C892E91C07F59824DA820B3D19AF2" Guid="{CA947CD3-6650-4E49-B39F-79FA763E1AC2}">
+                <File Id="fil70B67F87AD55D5D2B8EBA72176F70645" KeyPath="yes" Source="$(var.DriverDir)\xPULLpVN.cfg" />
+            </Component>
+            <Component Id="cmpC891D9F0A9668665BE4A3BF211D5A6A9" Guid="{A9BEEF72-9E87-47A2-ACA0-D7E629312C0A}">
+                <File Id="filEC8734358DA3082D115CE765BFF3094C" KeyPath="yes" Source="$(var.DriverDir)\xPULLpVP.cfg" />
+            </Component>
+            <Component Id="cmp68B56BC9160A943D1559C316ADD438E6" Guid="{A117D2DE-BEC1-4EB5-ACB9-58F3A92D2971}">
+                <File Id="filF244D363F451C8BC37870BB78792D196" KeyPath="yes" Source="$(var.DriverDir)\xPULLpWU.cfg" />
+            </Component>
+            <Component Id="cmp3AC0EFC7B3604635CCFCA31D2C265BAE" Guid="{0D77FDE5-1C0F-490C-87DD-2C4AD216F0A3}">
+                <File Id="fil77E6ADFBB020DFA55A12DFBF3C129A4E" KeyPath="yes" Source="$(var.DriverDir)\xPULLpXP.cfg" />
+            </Component>
+            <Component Id="cmp53C82467F3AF22081EF671AA03F735EE" Guid="{7F30FDA7-E82C-48AF-9C93-E225D01A6654}">
+                <File Id="fil5DE68FB30F47FC7B0008DBD570B6DDD4" KeyPath="yes" Source="$(var.DriverDir)\xPULLpYZ.cfg" />
+            </Component>
+            <Component Id="cmpB20B829E076B092EADDDC5B34CA49BAF" Guid="{1C671834-F34B-4405-B9F4-948B930421C2}">
+                <File Id="filD4CC74CCF2FAB45C81D36B814A54FCA6" KeyPath="yes" Source="$(var.DriverDir)\xPULLpZO.cfg" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="DriverFiles">
+            <ComponentRef Id="cmp584A5DBE71FF0A4140ABB10A6FFE9527" />
+            <ComponentRef Id="cmpFD505B328D0774C01E9E87F8D477A259" />
+            <ComponentRef Id="cmp520148FCBF387BD5FC3C9D073706E784" />
+            <ComponentRef Id="cmp97E8E593044D4D3C73C67ED3B97A9902" />
+            <ComponentRef Id="cmpF3E12F1B1FCD22757821E5CBF673B7F6" />
+            <ComponentRef Id="cmp9CBD5B21B9DA0834F6604B7B2C66A5FC" />
+            <ComponentRef Id="cmp9FEE0830A75690660B61499AFE5D8A42" />
+            <ComponentRef Id="cmpC13F5034F22A591E89387A4B52D6FD1F" />
+            <ComponentRef Id="cmp445AE383D0F9271621E84F5D1111C843" />
+            <ComponentRef Id="cmp88AB71BB3C06F7AEA87714D10AE80BC2" />
+            <ComponentRef Id="cmp256E68B2CA650DE5687B87088C6C93E7" />
+            <ComponentRef Id="cmpF203C5C75AC2D80ADB39813E87F8AAF0" />
+            <ComponentRef Id="cmpDCD6102231D107A0B873448C42EBA486" />
+            <ComponentRef Id="cmpA13DCA152A9E025B71D348B1ED0D22F1" />
+            <ComponentRef Id="cmpC89CEB86DBB7ABE575FEB399D188855A" />
+            <ComponentRef Id="cmp1DCE830CD5B6FAD705988D81B054CCA0" />
+            <ComponentRef Id="cmp6F5FD4B9BBCFB9B449CE8BF3B44FC4DC" />
+            <ComponentRef Id="cmpE061BD7D5459D993F5A9845A9CBE9C2A" />
+            <ComponentRef Id="cmp27F34BBD50FCB96AA7803A218A78E008" />
+            <ComponentRef Id="cmpB0C1A91ADE72CC92D28F6D906ECD025F" />
+            <ComponentRef Id="cmp85892517A40C507161D095203CC94D32" />
+            <ComponentRef Id="cmp2307677B72F8E19F721D6238623CC949" />
+            <ComponentRef Id="cmpEF55D884E7B23ECE852D74E46BDCF152" />
+            <ComponentRef Id="cmpB44F8EE14E1E61ABE3804D850E3FCA1F" />
+            <ComponentRef Id="cmpC8F451B14E9585151E877E34351EDAA6" />
+            <ComponentRef Id="cmp7F058F7A3A3AA41A1A3E206DD1A2D3F7" />
+            <ComponentRef Id="cmp02B364AE282980BDA216464BD37267B7" />
+            <ComponentRef Id="cmpD2519931D2FD88DB7C6D908511780C69" />
+            <ComponentRef Id="cmpFA565595E850CCF3FA680CD1B805A5D7" />
+            <ComponentRef Id="cmpB9F2D9BFA2D6179BD6AFDB803E722965" />
+            <ComponentRef Id="cmpC3D4E1AACF016C4A06DD256367119434" />
+            <ComponentRef Id="cmp081D9753A00A5E34075813E5E3F8FE43" />
+            <ComponentRef Id="cmpB1FFE3758CFD997B05C1C073670FE718" />
+            <ComponentRef Id="cmp109C892E91C07F59824DA820B3D19AF2" />
+            <ComponentRef Id="cmpC891D9F0A9668665BE4A3BF211D5A6A9" />
+            <ComponentRef Id="cmp68B56BC9160A943D1559C316ADD438E6" />
+            <ComponentRef Id="cmp3AC0EFC7B3604635CCFCA31D2C265BAE" />
+            <ComponentRef Id="cmp53C82467F3AF22081EF671AA03F735EE" />
+            <ComponentRef Id="cmpB20B829E076B092EADDDC5B34CA49BAF" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSoft Printer MSI Package Generator</title>
+    <style>
+        :root {
+            --bg-main: #151515;
+            --card-bg: #242424;
+            --card-inner: #1c1c1c;
+            --input-bg: #181818;
+            --border-color: #333333;
+            --border-light: #444444;
+            --accent-red: #D92231;
+            --accent-red-hover: #b91c28;
+            --accent-red-glow: rgba(217, 34, 49, 0.25);
+            --text-primary: #f5f5f5;
+            --text-secondary: #a3a3a3;
+            --text-muted: #737373;
+            --success: #10b981;
+            --success-dark: #059669;
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 24px 16px 40px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .app-shell {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        /* Top Header Navigation */
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            margin-bottom: 22px;
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-logo-gear {
+            width: 40px;
+            height: 40px;
+            background: #181818;
+            border: 1px solid #383838;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo-gear svg {
+            color: var(--accent-red);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .brand-title .k-part { color: #ffffff; }
+        .brand-title .soft-part { color: var(--accent-red); }
+
+        .brand-subtitle {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.2px;
+        }
+
+        .engine-status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: #181818;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .engine-status-pill .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #eab308;
+            transition: all 0.3s;
+        }
+
+        /* Wizard Progress Bar */
+        .wizard-stepper-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px 24px;
+            margin-bottom: 22px;
+        }
+
+        .wizard-stepper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .step-node {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 2;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .step-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1c1c1c;
+            border: 2px solid #3d3d3d;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .step-circle .icon-check {
+            display: none;
+            font-size: 13px;
+        }
+
+        .step-text {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: #333333;
+            margin: 0 12px;
+            transition: background 0.3s;
+        }
+
+        /* Active & Completed Stepper states */
+        .step-node.active .step-circle {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--accent-red-glow);
+        }
+
+        .step-node.active .step-text {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .step-node.completed .step-circle {
+            background: #2a1b1d;
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+
+        .step-node.completed .step-circle .step-num { display: none; }
+        .step-node.completed .step-circle .icon-check { display: inline-block; }
+
+        .step-node.completed .step-text {
+            color: #e5e5e5;
+        }
+
+        .step-line.completed {
+            background: var(--accent-red);
+        }
+
+        /* Main Central Wizard Card */
+        .main-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            min-height: 480px;
+        }
+
+        .panel-header {
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title svg {
+            color: var(--accent-red);
+        }
+
+        .panel-subtitle {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Form Controls */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .required {
+            color: var(--accent-red);
+            margin-left: 2px;
+        }
+
+        input[type="text"], select {
+            background: var(--input-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: #ffffff;
+            padding: 12px 14px;
+            font-size: 14px;
+            transition: all 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 2px var(--accent-red-glow);
+        }
+
+        input::placeholder {
+            color: #666666;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Dark Selectors (Radio Cards) */
+        .source-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .source-opt {
+            flex: 1;
+            min-width: 160px;
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .source-opt:hover {
+            border-color: #555555;
+            background: #202020;
+            color: #ffffff;
+        }
+
+        .source-opt.active {
+            border-color: var(--accent-red);
+            background: #2a1618;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .source-opt input[type="radio"] {
+            accent-color: var(--accent-red);
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Checkbox Cards */
+        .checkbox-card {
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .checkbox-card:hover {
+            border-color: #555555;
+            background: #202020;
+        }
+
+        .checkbox-card input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-red);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+
+        .checkbox-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .checkbox-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .checkbox-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Section Container Box */
+        .inner-subcard {
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+
+        /* Dropzones */
+        .dropzone {
+            border: 2px dashed #444444;
+            border-radius: var(--radius-md);
+            padding: 26px 20px;
+            text-align: center;
+            background: var(--card-inner);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .dropzone:hover {
+            border-color: var(--accent-red);
+            background: #221617;
+        }
+
+        .dropzone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .dropzone-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+            color: var(--accent-red);
+        }
+
+        .dropzone-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .dropzone-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .file-status-tag {
+            margin-top: 10px;
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 600;
+            display: none;
+        }
+
+        .hint-box {
+            background: #1c1c1c;
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-red);
+            border-radius: 6px;
+            padding: 12px 16px;
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        /* Wizard Navigation Buttons */
+        .wizard-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn-next, .btn-submit-wizard {
+            background: var(--accent-red);
+            color: #ffffff;
+            border: none;
+            padding: 13px 26px;
+            border-radius: 8px;
+            font-size: 14.5px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px var(--accent-red-glow);
+        }
+
+        .btn-next:hover, .btn-submit-wizard:hover:not(:disabled) {
+            background: var(--accent-red-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-prev {
+            background: #2a2a2a;
+            color: #e5e5e5;
+            border: 1px solid #404040;
+            padding: 13px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-prev:hover {
+            background: #333333;
+            color: #ffffff;
+        }
+
+        .btn-submit-wizard:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Step 4: Live Summary Table */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .summary-item {
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+
+        .summary-label {
+            font-size: 11.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .summary-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            word-break: break-all;
+        }
+
+        .summary-badge {
+            display: inline-block;
+            background: #2d181a;
+            color: var(--accent-red);
+            border: 1px solid rgba(217, 34, 49, 0.4);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Build Progress & Console */
+        .progress-box {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--card-inner);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        .progress-bar-bg {
+            background: #111111;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #D92231, #ff4d5a);
+            width: 30%;
+            border-radius: 20px;
+            animation: pulse-red-bar 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-red-bar {
+            0% { width: 15%; margin-left: 0%; }
+            50% { width: 60%; margin-left: 20%; }
+            100% { width: 30%; margin-left: 70%; }
+        }
+
+        .console-box {
+            background: #0d0d0d;
+            color: #d1d5db;
+            font-family: Consolas, "Courier New", monospace;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            max-height: 250px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin-top: 14px;
+            border: 1px solid #2a2a2a;
+        }
+
+        /* Result Card */
+        .result-card {
+            display: none;
+            background: #10231c;
+            border: 1px solid #10b981;
+            border-radius: var(--radius-md);
+            padding: 25px;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .result-title {
+            color: #34d399;
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-details {
+            font-size: 13.5px;
+            color: #a7f3d0;
+            margin-bottom: 20px;
+        }
+
+        .btn-download {
+            background: var(--success);
+            color: white;
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-download:hover {
+            background: var(--success-dark);
+            transform: translateY(-1px);
+        }
+
+        .cmd-snippet {
+            background: #0d0d0d;
+            border: 1px solid #2a2a2a;
+            color: #38bdf8;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-family: Consolas, monospace;
+            font-size: 13px;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cmd-snippet button {
+            background: #262626;
+            border: 1px solid #3d3d3d;
+            color: #ffffff;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11.5px;
+            font-weight: 600;
+        }
+
+        .cmd-snippet button:hover {
+            background: #333333;
+        }
+
+        /* Help Tooltip & Popover */
+        .help-tooltip-container {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .help-badge-btn {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #2a1618;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            font-weight: 700;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0;
+            user-select: none;
+        }
+
+        .help-badge-btn:hover,
+        .help-badge-btn.active {
+            background: var(--accent-red);
+            color: white;
+            box-shadow: 0 0 10px var(--accent-red-glow);
+        }
+
+        .help-popover {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            width: 480px;
+            max-width: 90vw;
+            background: #1f1f1f;
+            border: 1px solid #3d3d3d;
+            border-radius: 12px;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            z-index: 1000;
+            text-align: left;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .help-popover::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 0;
+            width: 100%;
+            height: 10px;
+        }
+
+        .help-tooltip-container:hover .help-popover,
+        .help-popover.show {
+            display: block;
+            animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popoverFadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .help-popover-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
+
+        .help-popover-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .help-popover-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0 4px;
+            line-height: 1;
+        }
+
+        .help-popover-close:hover {
+            color: #ffffff;
+        }
+
+        .help-method-block {
+            background: #161616;
+            border: 1px solid #2d2d2d;
+            border-radius: 8px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+        }
+
+        .help-method-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #ff5260;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .help-method-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .help-cmd-box {
+            background: #0a0a0a;
+            border: 1px solid #242424;
+            color: #38bdf8;
+            padding: 8px 10px;
+            border-radius: 6px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 11.5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            word-break: break-all;
+        }
+
+        .btn-copy-code {
+            background: #242424;
+            border: 1px solid #3a3a3a;
+            color: #f8fafc;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-copy-code:hover {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-shell">
+    <!-- Top Header -->
+    <header class="app-header">
+        <div class="brand-cluster">
+            <div class="brand-logo-gear">
+                <!-- Geometric Gear SVG Logo -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" fill="#D92231" stroke="#D92231"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="#D92231"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <div class="brand-title">
+                    <span class="k-part">K</span><span class="soft-part">Soft</span>
+                </div>
+                <div class="brand-subtitle">Printer MSI Package Generator</div>
+            </div>
+        </div>
+
+        <div class="engine-status-pill" id="engineStatus">
+            <span class="indicator-dot" id="engineDot"></span>
+            <span id="engineText">Checking Engine...</span>
+        </div>
+    </header>
+
+    <!-- Wizard Stepper Indicator (4 Steps) -->
+    <div class="wizard-stepper-card">
+        <div class="wizard-stepper">
+            <div class="step-node active" id="stepNode1" onclick="goToStep(1)">
+                <div class="step-circle">
+                    <span class="step-num">1</span>
+                    <span class="icon-check">✓</span>
+                </div>
+                <div class="step-text">1. Config</div>
+            </div>
+
+            <div class="step-line" id="stepLine1"></div>
+
+            <div class="step-node" id="stepNode2" onclick="goToStep(2)">
+                <div class="step-circle">
+                    <span class="step-num">2</span>
+                    <span class="icon-check">✓</span>
+                </div>
+                <div class="step-text">2. Drivers</div>
+            </div>
+
+            <div class="step-line" id="stepLine2"></div>
+
+            <div class="step-node" id="stepNode3" onclick="goToStep(3)">
+                <div class="step-circle">
+                    <span class="step-num">3</span>
+                    <span class="icon-check">✓</span>
+                </div>
+                <div class="step-text">3. Settings</div>
+            </div>
+
+            <div class="step-line" id="stepLine3"></div>
+
+            <div class="step-node" id="stepNode4" onclick="goToStep(4)">
+                <div class="step-circle">
+                    <span class="step-num">4</span>
+                    <span class="icon-check">✓</span>
+                </div>
+                <div class="step-text">4. Build</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Wizard Content Card -->
+    <div class="main-card">
+        <form id="builderForm">
+            <!-- ================= STEP 1: CONFIG ================= -->
+            <div class="wizard-panel" id="panelStep1">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                            <span>Printer &amp; Network Configuration</span>
+                        </div>
+                        <div class="panel-subtitle">Define the target printer name, IP address, port protocol, and manufacturer details.</div>
+                    </div>
+                </div>
+
+                <div class="form-grid" style="margin-bottom: 20px;">
+                    <div class="form-group">
+                        <label>Printer / Queue Name <span class="required">*</span></label>
+                        <input type="text" id="printer_name" name="printer_name" placeholder="e.g. Xerox_MFP" value="Xerox_MFP" required>
+                        <span class="field-hint">The display name in Windows Settings &amp; Control Panel.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Printer IP Address <span class="required">*</span></label>
+                        <input type="text" id="printer_ip" name="printer_ip" placeholder="e.g. 10.10.10.10" value="10.10.10.10" required>
+                        <span class="field-hint">Network IPv4 address of the physical printer.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Manufacturer</label>
+                        <input type="text" id="manufacturer" name="manufacturer" placeholder="e.g. Xerox" value="Xerox">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Output MSI File Name</label>
+                        <input type="text" id="msi_name" name="msi_name" placeholder="Leave blank for automatic: Xerox_MFP_Installer.msi">
+                    </div>
+                </div>
+
+                <!-- Network Protocol & Port Configuration Subcard -->
+                <div class="inner-subcard">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <label style="font-size: 14px; font-weight: 700; color: #ffffff; margin: 0;">
+                            Port Protocol &amp; Communication Monitor
+                        </label>
+                        <span style="font-size: 11.5px; color: var(--text-muted);">Standard TCP/IP</span>
+                    </div>
+
+                    <div class="source-selector" style="margin-bottom: 16px;">
+                        <label class="source-opt active" id="opt_proto_raw">
+                            <input type="radio" name="port_protocol" value="RAW" checked onchange="toggleProtocol()">
+                            <span><b>RAW Protocol</b> (Port 9100 - Default)</span>
+                        </label>
+                        <label class="source-opt" id="opt_proto_lpr">
+                            <input type="radio" name="port_protocol" value="LPR" onchange="toggleProtocol()">
+                            <span><b>LPR Protocol</b> (Line Printer Remote / Queue)</span>
+                        </label>
+                    </div>
+
+                    <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 8px;">
+                        <div class="form-group">
+                            <label>Port Name (Optional)</label>
+                            <input type="text" id="port_name" name="port_name" placeholder="Leave empty for auto: IP_<Printer_IP>">
+                            <span class="field-hint">Defaults automatically to <code>IP_{PrinterIP}</code>.</span>
+                        </div>
+
+                        <!-- RAW: Port Number -->
+                        <div class="form-group" id="raw_settings_group">
+                            <label>RAW Port Number <span class="required">*</span></label>
+                            <input type="text" id="raw_port_number" name="raw_port_number" value="9100" placeholder="9100">
+                            <span class="field-hint">Standard TCP raw printing port (default: 9100).</span>
+                        </div>
+
+                        <!-- LPR: Queue Name -->
+                        <div class="form-group" id="lpr_settings_group" style="display: none;">
+                            <label>LPR Queue Name <span class="required">*</span></label>
+                            <input type="text" id="lpr_queue_name" name="lpr_queue_name" placeholder="e.g. lp, raw, or print queue name">
+                            <span class="field-hint">Name of the print queue on the remote LPD server.</span>
+                        </div>
+                    </div>
+
+                    <!-- LPR Byte Counting -->
+                    <div id="lpr_byte_count_container" style="display: none; margin-top: 12px;">
+                        <label class="checkbox-card" style="padding: 10px 14px;">
+                            <input type="checkbox" id="lpr_byte_counting" name="lpr_byte_counting" value="true">
+                            <div class="checkbox-info">
+                                <span class="checkbox-title" style="font-size: 13.5px;">🔢 LPR Byte Counting Enabled</span>
+                                <span class="checkbox-desc" style="font-size: 12px;">Pre-counts byte size in the print request header. Required by certain UNIX/Linux/Secure spoolers.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Set Default Printer Toggle Option -->
+                <label class="checkbox-card" style="margin-top: 5px;">
+                    <input type="checkbox" id="set_default" name="set_default" value="true">
+                    <div class="checkbox-info">
+                        <span class="checkbox-title">⭐ Set as Default Printer for User</span>
+                        <span class="checkbox-desc">Automatically configures this printer as the Windows default printer for active and future user profiles upon installation.</span>
+                    </div>
+                </label>
+
+                <!-- Navigation -->
+                <div class="wizard-actions">
+                    <div></div>
+                    <button type="button" class="btn-next" onclick="nextStep(1)">
+                        <span>Next: Drivers</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 2: DRIVERS ================= -->
+            <div class="wizard-panel" id="panelStep2" style="display: none;">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            <span>Printer Driver Files</span>
+                        </div>
+                        <div class="panel-subtitle">Select existing project drivers or upload a new driver archive (.zip / .inf files).</div>
+                    </div>
+                </div>
+
+                <!-- Driver Source Selector -->
+                <div class="source-selector">
+                    <label class="source-opt {% if driver_files_count > 0 %}active{% endif %}" id="opt_driver_existing">
+                        <input type="radio" name="driver_source" value="existing" {% if driver_files_count > 0 %}checked{% endif %} onchange="toggleDriverSource()">
+                        <span>Use Project Driver Files ({{ driver_files_count }} files found)</span>
+                    </label>
+                    <label class="source-opt {% if driver_files_count == 0 %}active{% endif %}" id="opt_driver_upload">
+                        <input type="radio" name="driver_source" value="upload" {% if driver_files_count == 0 %}checked{% endif %} onchange="toggleDriverSource()">
+                        <span>Upload New Driver Files</span>
+                    </label>
+                </div>
+
+                <!-- Upload Container -->
+                <div id="driver_upload_container" style="{% if driver_files_count > 0 %}display: none;{% endif %} margin-bottom: 20px;">
+                    <div class="dropzone" id="driverDropzone">
+                        <input type="file" id="driverZipInput" name="driver_zip" accept=".zip">
+                        <div class="dropzone-icon">📁</div>
+                        <div class="dropzone-title">Click or drag &amp; drop driver ZIP package</div>
+                        <div class="dropzone-hint">Supports a .zip archive containing all driver files (.inf, .cat, .dll, etc.)</div>
+                        <div class="file-status-tag" id="driverZipStatus"></div>
+                    </div>
+
+                    <div style="text-align: center; margin: 10px 0; font-size: 13px; color: var(--text-muted);">— or —</div>
+
+                    <div class="dropzone" style="padding: 16px;">
+                        <input type="file" id="driverFilesInput" name="driver_files" multiple>
+                        <div class="dropzone-title" style="font-size: 13px;">Select multiple loose driver files</div>
+                        <div class="file-status-tag" id="driverFilesStatus"></div>
+                    </div>
+                </div>
+
+                <!-- Driver Model Dropdown Selector (Parsed from INF) -->
+                <div class="inner-subcard" style="margin-top: 15px;">
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                            <label style="margin: 0; font-weight: 700; color: #ffffff;">Driver Model Name in INF <span class="required">*</span></label>
+                            <span id="detectedCountBadge" style="font-size: 11px; background: #2a1618; color: var(--accent-red); border: 1px solid rgba(217, 34, 49, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 600;">
+                                {% if default_models|length > 0 %}{{ default_models|length }} Model(s) in INF{% else %}No Driver Selected{% endif %}
+                            </span>
+                        </div>
+
+                        <!-- Dropdown Select for INF Models -->
+                        <select id="driver_model_select" onchange="onDriverSelectChange(this.value)">
+                            {% for m in default_models %}
+                            <option value="{{ m }}" {% if loop.first %}selected{% endif %}>{{ m }}</option>
+                            {% endfor %}
+                            <option value="__custom__">✏️ Custom / Enter manually...</option>
+                        </select>
+
+                        <!-- Custom manual input (hidden unless chosen) -->
+                        <div id="customDriverGroup" style="display: none; margin-top: 8px;">
+                            <input type="text" id="custom_driver_name" placeholder="Type exact driver model name from INF..." oninput="onCustomDriverInput(this.value)">
+                            <span class="field-hint" style="margin-top: 4px; display: block;">Must match the model name specified in the INF file.</span>
+                        </div>
+
+                        <!-- Hidden input submitted with form -->
+                        <input type="hidden" id="driver_name" name="driver_name" value="{{ default_models[0] if default_models else 'Xerox Pull Print Driver PS' }}" required>
+                    </div>
+                </div>
+
+                <div class="hint-box">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    <span>Driver files must contain at least one <b>.inf</b> file so the MSI installer can register and install the driver package via PnP.</span>
+                </div>
+
+                <!-- Navigation -->
+                <div class="wizard-actions">
+                    <button type="button" class="btn-prev" onclick="prevStep(2)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <span>Back: Config</span>
+                    </button>
+                    <button type="button" class="btn-next" onclick="nextStep(2)">
+                        <span>Next: Settings</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 3: SETTINGS ================= -->
+            <div class="wizard-panel" id="panelStep3" style="display: none;">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            <span>Printer Settings &amp; Configuration</span>
+                        </div>
+                        <div class="panel-subtitle">Package preset printer hardware options, paper trays, duplex, and color preferences.</div>
+                    </div>
+
+                    <!-- Help Popover Trigger Button (?) -->
+                    <div class="help-tooltip-container">
+                        <button type="button" class="help-badge-btn" id="btnHelpSettings" onclick="toggleSettingsHelp(event)" title="How to export .dat and .xml settings from Windows">
+                            ?
+                        </button>
+
+                        <div class="help-popover" id="settingsHelpPopover">
+                            <div class="help-popover-header">
+                                <span class="help-popover-title">
+                                    <span>💡</span>
+                                    <span>How to Export Printer Settings</span>
+                                </span>
+                                <button type="button" class="help-popover-close" onclick="closeSettingsHelp(event)">&times;</button>
+                            </div>
+
+                            <!-- 1. DAT Binary Settings -->
+                            <div class="help-method-block">
+                                <div class="help-method-title">
+                                    <span>📄</span>
+                                    <span>1. Export .DAT Binary Settings (PrintUIEntry)</span>
+                                </div>
+                                <div class="help-method-desc">
+                                    Exports full driver properties, hardware trays, paper sizes, and device defaults from an installed printer (Run in CMD / PowerShell as Admin):
+                                </div>
+                                <div class="help-cmd-box">
+                                    <code>rundll32 printui.dll,PrintUIEntry /Ss /n "PrinterName" /a "C:\Settings.dat"</code>
+                                    <button type="button" class="btn-copy-code" onclick="copyHelpCode(this, 'rundll32 printui.dll,PrintUIEntry /Ss /n \"PrinterName\" /a \"C:\\Settings.dat\"')">Copy</button>
+                                </div>
+                            </div>
+
+                            <!-- 2. XML PrintTicket Configuration -->
+                            <div class="help-method-block" style="margin-bottom: 8px;">
+                                <div class="help-method-title">
+                                    <span>📑</span>
+                                    <span>2. Export .XML PrintTicket (PowerShell)</span>
+                                </div>
+                                <div class="help-method-desc">
+                                    Exports duplex (2-sided), color / black &amp; white, orientation, and resolution preferences natively:
+                                </div>
+                                <div class="help-cmd-box">
+                                    <code>Get-PrintConfiguration -PrinterName "PrinterName" | Export-Clixml -Path "C:\Settings.xml"</code>
+                                    <button type="button" class="btn-copy-code" onclick="copyHelpCode(this, 'Get-PrintConfiguration -PrinterName \"PrinterName\" | Export-Clixml -Path \"C:\\Settings.xml\"')">Copy</button>
+                                </div>
+                            </div>
+
+                            <div style="font-size: 11.5px; color: var(--text-secondary); margin-top: 10px; line-height: 1.4; background: #161616; padding: 8px 12px; border-radius: 6px; border: 1px solid #2d2d2d;">
+                                💡 <b>Note:</b> Replace <code>"PrinterName"</code> with the exact name of your configured reference printer. You can upload <code>.dat</code>, <code>.xml</code>, or bundle both in a <code>.zip</code>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Source Selector -->
+                <div class="source-selector">
+                    <label class="source-opt {% if settings_files_count > 0 %}active{% endif %}" id="opt_settings_existing">
+                        <input type="radio" name="settings_source" value="existing" {% if settings_files_count > 0 %}checked{% endif %} onchange="toggleSettingsSource()">
+                        <span>Use Project Settings ({{ settings_files_count }} files found)</span>
+                    </label>
+                    <label class="source-opt" id="opt_settings_upload">
+                        <input type="radio" name="settings_source" value="upload" onchange="toggleSettingsSource()">
+                        <span>Upload Settings (.dat / .xml / .zip)</span>
+                    </label>
+                    <label class="source-opt {% if settings_files_count == 0 %}active{% endif %}" id="opt_settings_none">
+                        <input type="radio" name="settings_source" value="none" {% if settings_files_count == 0 %}checked{% endif %} onchange="toggleSettingsSource()">
+                        <span>Skip Settings</span>
+                    </label>
+                </div>
+
+                <div id="settings_upload_container" style="display: none; margin-bottom: 20px;">
+                    <div class="dropzone">
+                        <input type="file" id="settingsFilesInput" name="settings_files" multiple accept=".dat,.xml,.zip">
+                        <div class="dropzone-icon">📄</div>
+                        <div class="dropzone-title">Click or drag &amp; drop configuration files (.dat, .xml, or .zip)</div>
+                        <div class="dropzone-hint">Supports XML PrintTickets and DAT binary settings</div>
+                        <div class="file-status-tag" id="settingsFilesStatus"></div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="wizard-actions">
+                    <button type="button" class="btn-prev" onclick="prevStep(3)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <span>Back: Drivers</span>
+                    </button>
+                    <button type="button" class="btn-next" onclick="nextStep(3)">
+                        <span>Next: Review &amp; Build</span>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= STEP 4: BUILD ================= -->
+            <div class="wizard-panel" id="panelStep4" style="display: none;">
+                <div class="panel-header">
+                    <div>
+                        <div class="panel-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 16 12 12 8 16"></polyline><line x1="12" y1="12" x2="12" y2="21"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+                            <span>Review &amp; Generate MSI Package</span>
+                        </div>
+                        <div class="panel-subtitle">Verify your packaging parameters, initiate the WiX build pipeline, and download the standalone installer.</div>
+                    </div>
+                </div>
+
+                <!-- Live Summary Table -->
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Printer Name</div>
+                        <div class="summary-val" id="sumPrinterName">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Printer IP</div>
+                        <div class="summary-val" id="sumPrinterIP">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Protocol &amp; Port</div>
+                        <div class="summary-val" id="sumPortProtocol">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Driver Model</div>
+                        <div class="summary-val" id="sumDriverName">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Default Printer</div>
+                        <div class="summary-val" id="sumDefaultPrinter">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Output File</div>
+                        <div class="summary-val" id="sumMsiName">—</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Script Protection</div>
+                        <div class="summary-val" style="color: #34d399; display: flex; align-items: center; gap: 6px; font-weight: 700;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            Encrypted In-Memory (Active)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Build Action Button -->
+                <div style="text-align: center; margin: 25px 0;">
+                    <button type="submit" class="btn-submit-wizard" id="btnSubmit">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <span>Build MSI Package Now</span>
+                    </button>
+                </div>
+
+                <!-- Progress Box & Terminal -->
+                <div class="progress-box" id="progressBox">
+                    <div style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 8px;" id="progressTitle">
+                        ⏳ Packaging and building MSI installer...
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill"></div>
+                    </div>
+                    <p style="font-size: 12.5px; color: var(--text-secondary);" id="progressSub">Compiling driver components, configuration scripts, and generating standalone MSI package...</p>
+                    
+                    <div class="console-box" id="consoleLog">Initializing build process...</div>
+                </div>
+
+                <!-- Result Card -->
+                <div class="result-card" id="resultCard">
+                    <div style="font-size: 40px; margin-bottom: 8px;">🎉</div>
+                    <div class="result-title">MSI Package Generated Successfully!</div>
+                    <div class="result-details" id="resultDetails"></div>
+                    
+                    <a href="#" class="btn-download" id="downloadBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span>Download MSI Package</span>
+                    </a>
+
+                    <div style="margin-top: 22px; text-align: left;">
+                        <div style="font-size: 12.5px; font-weight: 600; color: #34d399; margin-bottom: 6px;">Silent Installation Command (Intune / SCCM / GPO):</div>
+                        <div class="cmd-snippet">
+                            <span id="cmdText">msiexec /i "Installer.msi" /qn /norestart</span>
+                            <button type="button" onclick="copyCmd()">Copy Command</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="wizard-actions">
+                    <button type="button" class="btn-prev" onclick="prevStep(4)">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                        <span>Back: Settings</span>
+                    </button>
+                    <div></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    let currentStep = 1;
+
+    // Check Engine status on load
+    fetch('/api/check-engine')
+        .then(r => r.json())
+        .then(data => {
+            const dot = document.getElementById('engineDot');
+            const txt = document.getElementById('engineText');
+            if (data.ready) {
+                dot.style.background = '#10b981';
+                dot.style.boxShadow = '0 0 8px #10b981';
+                txt.textContent = 'Package Engine: Ready';
+                txt.style.color = '#34d399';
+            } else {
+                dot.style.background = '#ef4444';
+                dot.style.boxShadow = '0 0 8px #ef4444';
+                txt.textContent = 'Package Engine: Offline';
+                txt.style.color = '#f87171';
+            }
+        })
+        .catch(() => {
+            const dot = document.getElementById('engineDot');
+            const txt = document.getElementById('engineText');
+            dot.style.background = '#ef4444';
+            txt.textContent = 'Package Engine: Offline';
+        });
+
+    // Wizard Step Navigation
+    function goToStep(step) {
+        if (step > currentStep) {
+            // Validate intermediate steps before jumping ahead
+            for (let s = currentStep; s < step; s++) {
+                if (!validateStep(s)) return;
+            }
+        }
+        setStep(step);
+    }
+
+    function nextStep(fromStep) {
+        if (validateStep(fromStep)) {
+            setStep(fromStep + 1);
+        }
+    }
+
+    function prevStep(fromStep) {
+        setStep(fromStep - 1);
+    }
+
+    function setStep(step) {
+        currentStep = step;
+
+        // Show active panel, hide others
+        for (let i = 1; i <= 4; i++) {
+            const panel = document.getElementById(`panelStep${i}`);
+            const node = document.getElementById(`stepNode${i}`);
+            const line = document.getElementById(`stepLine${i}`);
+
+            if (panel) {
+                panel.style.display = (i === step) ? 'block' : 'none';
+            }
+
+            if (node) {
+                node.classList.remove('active', 'completed');
+                if (i === step) {
+                    node.classList.add('active');
+                } else if (i < step) {
+                    node.classList.add('completed');
+                }
+            }
+
+            if (line) {
+                if (i < step) {
+                    line.classList.add('completed');
+                } else {
+                    line.classList.remove('completed');
+                }
+            }
+        }
+
+        // Update live summary if moving to step 4
+        if (step === 4) {
+            updateLiveSummary();
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(step) {
+        if (step === 1) {
+            const name = document.getElementById('printer_name').value.trim();
+            const ip = document.getElementById('printer_ip').value.trim();
+            if (!name) {
+                alert('Please enter a Printer / Queue Name.');
+                document.getElementById('printer_name').focus();
+                return false;
+            }
+            if (!ip) {
+                alert('Please enter the Printer IP address.');
+                document.getElementById('printer_ip').focus();
+                return false;
+            }
+
+            const proto = document.querySelector('input[name="port_protocol"]:checked').value;
+            if (proto === 'LPR') {
+                const q = document.getElementById('lpr_queue_name').value.trim();
+                if (!q) {
+                    alert('Please enter a Queue Name for the LPR protocol.');
+                    document.getElementById('lpr_queue_name').focus();
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        if (step === 2) {
+            const driverVal = document.getElementById('driver_name').value.trim();
+            if (!driverVal) {
+                alert('Please select or specify a Driver Model Name from the INF.');
+                const sel = document.getElementById('driver_model_select');
+                if (sel.value === '__custom__') {
+                    document.getElementById('custom_driver_name').focus();
+                } else {
+                    sel.focus();
+                }
+                return false;
+            }
+            return true;
+        }
+
+        return true;
+    }
+
+    function updateLiveSummary() {
+        const pName = document.getElementById('printer_name').value.trim();
+        const pIP = document.getElementById('printer_ip').value.trim();
+        const dName = document.getElementById('driver_name').value.trim();
+        const proto = document.querySelector('input[name="port_protocol"]:checked').value;
+        const customMsi = document.getElementById('msi_name').value.trim();
+        const isDef = document.getElementById('set_default').checked;
+
+        document.getElementById('sumPrinterName').textContent = pName || '—';
+        document.getElementById('sumPrinterIP').textContent = pIP || '—';
+        document.getElementById('sumDriverName').textContent = dName || '—';
+
+        if (proto === 'LPR') {
+            const q = document.getElementById('lpr_queue_name').value.trim();
+            const bc = document.getElementById('lpr_byte_counting').checked;
+            document.getElementById('sumPortProtocol').innerHTML = `<span class="summary-badge">LPR</span> Queue: <b>${q}</b> ${bc ? '(Byte Counting)' : ''}`;
+        } else {
+            const portNum = document.getElementById('raw_port_number').value.trim() || '9100';
+            document.getElementById('sumPortProtocol').innerHTML = `<span class="summary-badge">RAW</span> Port: <b>${portNum}</b>`;
+        }
+
+        document.getElementById('sumDefaultPrinter').innerHTML = isDef ? '<span style="color:#10b981; font-weight:700;">✓ Yes (Default)</span>' : 'No';
+
+        const safeName = pName.replace(/[^a-zA-Z0-9_-]/g, '') || 'Printer';
+        const expectedMsi = customMsi ? (customMsi.toLowerCase().endsWith('.msi') ? customMsi : customMsi + '.msi') : `${safeName}_Installer.msi`;
+        document.getElementById('sumMsiName').textContent = expectedMsi;
+    }
+
+    // Protocol Toggle (RAW vs LPR)
+    function toggleProtocol() {
+        const proto = document.querySelector('input[name="port_protocol"]:checked').value;
+        const isRaw = (proto === 'RAW');
+        
+        document.getElementById('opt_proto_raw').classList.toggle('active', isRaw);
+        document.getElementById('opt_proto_lpr').classList.toggle('active', !isRaw);
+        
+        document.getElementById('raw_settings_group').style.display = isRaw ? 'flex' : 'none';
+        document.getElementById('lpr_settings_group').style.display = isRaw ? 'none' : 'flex';
+        document.getElementById('lpr_byte_count_container').style.display = isRaw ? 'none' : 'block';
+
+        const queueInput = document.getElementById('lpr_queue_name');
+        if (isRaw) {
+            queueInput.removeAttribute('required');
+        } else {
+            queueInput.setAttribute('required', 'required');
+            queueInput.focus();
+        }
+    }
+
+    // Driver Model Dropdown Management
+    function onDriverSelectChange(val) {
+        const customGroup = document.getElementById('customDriverGroup');
+        const hiddenInput = document.getElementById('driver_name');
+        const customInput = document.getElementById('custom_driver_name');
+
+        if (val === '__custom__') {
+            customGroup.style.display = 'block';
+            hiddenInput.value = customInput.value.trim();
+            customInput.focus();
+        } else {
+            customGroup.style.display = 'none';
+            hiddenInput.value = val;
+        }
+    }
+
+    function onCustomDriverInput(val) {
+        document.getElementById('driver_name').value = val.trim();
+    }
+
+    function updateDriverDropdown(models) {
+        const sel = document.getElementById('driver_model_select');
+        const badge = document.getElementById('detectedCountBadge');
+        const hiddenInput = document.getElementById('driver_name');
+        
+        sel.innerHTML = '';
+        models.forEach((m, idx) => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            if (idx === 0) opt.selected = true;
+            sel.appendChild(opt);
+        });
+
+        // Add custom option
+        const customOpt = document.createElement('option');
+        customOpt.value = '__custom__';
+        customOpt.textContent = '✏️ Custom / Enter manually...';
+        sel.appendChild(customOpt);
+
+        if (models.length > 0) {
+            hiddenInput.value = models[0];
+            document.getElementById('customDriverGroup').style.display = 'none';
+            badge.textContent = `${models.length} Model(s) in INF`;
+            badge.style.background = '#2a1618';
+            badge.style.color = '#D92231';
+        }
+    }
+
+    // Source Toggles
+    function toggleDriverSource() {
+        const val = document.querySelector('input[name="driver_source"]:checked').value;
+        document.getElementById('opt_driver_existing').classList.toggle('active', val === 'existing');
+        document.getElementById('opt_driver_upload').classList.toggle('active', val === 'upload');
+        document.getElementById('driver_upload_container').style.display = (val === 'upload') ? 'block' : 'none';
+    }
+
+    function toggleSettingsSource() {
+        const val = document.querySelector('input[name="settings_source"]:checked').value;
+        document.getElementById('opt_settings_existing').classList.toggle('active', val === 'existing');
+        document.getElementById('opt_settings_upload').classList.toggle('active', val === 'upload');
+        document.getElementById('opt_settings_none').classList.toggle('active', val === 'none');
+        document.getElementById('settings_upload_container').style.display = (val === 'upload') ? 'block' : 'none';
+    }
+
+    // File input change handlers
+    document.getElementById('driverZipInput').addEventListener('change', function(e) {
+        const st = document.getElementById('driverZipStatus');
+        if (this.files.length > 0) {
+            st.textContent = `✓ Selected ZIP: ${this.files[0].name} (${(this.files[0].size/1024/1024).toFixed(2)} MB)`;
+            st.style.display = 'block';
+
+            // Auto-detect models from INF inside ZIP
+            const fd = new FormData();
+            fd.append('file', this.files[0]);
+            fetch('/api/parse-inf', { method: 'POST', body: fd })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.models && data.models.length > 0) {
+                        updateDriverDropdown(data.models);
+                    }
+                })
+                .catch(() => {});
+        }
+    });
+
+    document.getElementById('driverFilesInput').addEventListener('change', function(e) {
+        const st = document.getElementById('driverFilesStatus');
+        if (this.files.length > 0) {
+            st.textContent = `✓ Selected ${this.files.length} driver files`;
+            st.style.display = 'block';
+
+            // Auto-detect model name from .inf file
+            for (let f of this.files) {
+                if (f.name.toLowerCase().endsWith('.inf')) {
+                    const fd = new FormData();
+                    fd.append('file', f);
+                    fetch('/api/parse-inf', { method: 'POST', body: fd })
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.models && data.models.length > 0) {
+                                updateDriverDropdown(data.models);
+                            }
+                        })
+                        .catch(() => {});
+                    break;
+                }
+            }
+        }
+    });
+
+    document.getElementById('settingsFilesInput').addEventListener('change', function(e) {
+        const st = document.getElementById('settingsFilesStatus');
+        if (this.files.length > 0) {
+            st.textContent = `✓ Selected ${this.files.length} configuration file(s)`;
+            st.style.display = 'block';
+        }
+    });
+
+    // Form Submit Handler (Triggers Build)
+    document.getElementById('builderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (!validateStep(1) || !validateStep(2)) {
+            return;
+        }
+
+        const btn = document.getElementById('btnSubmit');
+        const progressBox = document.getElementById('progressBox');
+        const resultCard = document.getElementById('resultCard');
+        const consoleLog = document.getElementById('consoleLog');
+
+        btn.disabled = true;
+        btn.innerHTML = `<svg class="spinner" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle><path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path></svg><span>Packaging MSI... Please wait</span>`;
+        progressBox.style.display = 'block';
+        resultCard.style.display = 'none';
+        consoleLog.textContent = "[*] Uploading package inputs to builder...\n";
+
+        progressBox.scrollIntoView({ behavior: 'smooth' });
+
+        const formData = new FormData(this);
+
+        fetch('/api/build', {
+            method: 'POST',
+            body: formData
+        })
+        .then(async response => {
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'An error occurred while building the package.');
+            }
+            return data;
+        })
+        .then(data => {
+            if (data.logs && data.logs.length > 0) {
+                consoleLog.textContent = data.logs.join('\n');
+            }
+
+            document.getElementById('progressTitle').textContent = "Package Built Successfully!";
+            document.getElementById('progressSub').textContent = "The standalone MSI installer is ready for download.";
+            
+            document.getElementById('resultDetails').innerHTML = `
+                File Name: <b>${data.filename}</b><br>
+                File Size: <b>${data.size_mb} MB</b> | Printer: <b>${document.getElementById('printer_name').value}</b>
+            `;
+
+            document.getElementById('downloadBtn').href = data.download_url;
+            document.getElementById('cmdText').textContent = `msiexec /i "${data.filename}" /qn /norestart`;
+
+            resultCard.style.display = 'block';
+            resultCard.scrollIntoView({ behavior: 'smooth' });
+        })
+        .catch(err => {
+            consoleLog.textContent += `\n[ERROR] ${err.message}`;
+            alert(`Error: ${err.message}`);
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg><span>Build MSI Package Now</span>`;
+        });
+    });
+
+    function copyCmd() {
+        const text = document.getElementById('cmdText').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Silent install command copied to clipboard!');
+        });
+    }
+
+    // Help Popover Interactions
+    function toggleSettingsHelp(e) {
+        e.stopPropagation();
+        const popover = document.getElementById('settingsHelpPopover');
+        const btn = document.getElementById('btnHelpSettings');
+        popover.classList.toggle('show');
+        btn.classList.toggle('active');
+    }
+
+    function closeSettingsHelp(e) {
+        if (e) e.stopPropagation();
+        const popover = document.getElementById('settingsHelpPopover');
+        const btn = document.getElementById('btnHelpSettings');
+        if (popover) popover.classList.remove('show');
+        if (btn) btn.classList.remove('active');
+    }
+
+    document.addEventListener('click', function(e) {
+        const container = document.querySelector('.help-tooltip-container');
+        if (container && !container.contains(e.target)) {
+            closeSettingsHelp();
+        }
+    });
+
+    function copyHelpCode(btn, codeText) {
+        navigator.clipboard.writeText(codeText).then(() => {
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            btn.style.background = '#10b981';
+            btn.style.borderColor = '#10b981';
+            btn.style.color = '#ffffff';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+                btn.style.borderColor = '';
+                btn.style.color = '';
+            }, 2000);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,367 @@
+*PPD-Adobe: "4.3"
+*% Intended only for use by a Xerox print driver for Microsoft Windows (R)
+*% Xerox Corporation (R) Printer Description File
+*% Copyright Xerox Corporation
+*% Copyright Adobe Systems, Inc.
+*% All Rights Reserved.
+*FormatVersion: "4.3"
+*FileVersion: "1.0"
+
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+
+*Manufacturer: "Xerox"
+*ModelName: "Xerox Pull Print"
+*ShortNickName: "Xerox Pull Print"
+*NickName: "Xerox Pull Print"
+*PCFileName: "x3PULLP080.p3p"
+*Product: "(Xerox WorkCentre)"
+*PSVersion: "(3010.106) 1510"
+*LanguageLevel: "3"
+*PrintPSErrors: True
+*ADHasEuro: True
+*TTRasterizer: Type42
+*SuggestedJobTimeout: "0"
+*SuggestedWaitTimeout: "120"
+    
+
+*LeadingEdge Short: ""
+*DefaultLeadingEdge: Short
+*LandscapeOrientation: Plus90
+*% Overridden by driver:
+*Throughput: "25"
+
+*ColorDevice: True
+*DefaultColorSpace: CMYK
+
+*FreeVM: "4340000"
+*VMOption None/_Standard_: "4340000"
+*FCacheSize None: "1079416"
+
+*% === Custom Paper Sizes ===
+
+*ParamCustomPageSize Width/_Width_: 1 points 72 7200 
+*ParamCustomPageSize Height/_Height_: 2 points 72 7200
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 1 1
+*MaxMediaWidth: "7200"
+*MaxMediaHeight: "7200"
+*HWMargins: 0 0 0 0
+
+*NonUIOrderDependency: 46.5 AnySetup *CustomPageSize
+*CustomPageSize True: "
+ %Intentionally null
+ pop pop pop pop pop"
+*End
+
+*% Paper definitions needed by certain PostScript passthrough applications that parse the .P3P file for capabilities.
+*% The command invocations have been intentionally removed as required by this driver.
+
+*% === Page Size ===
+*OpenUI *PageSize/Page Size: PickOne
+*OrderDependency: 47.0 AnySetup *PageSize
+*DefaultPageSize: Letter
+*PageSize Letter/Letter (8.5 x 11"): "%%Intentionally blank"
+*End
+*PageSize Legal/Legal (8.5 x 14"): "%%Intentionally blank"
+*End
+*PageSize Tabloid/Tabloid (11 x 17"): "%%Intentionally blank"
+*End
+*PageSize Statement/Statement (5.5 x 8.5"): "%%Intentionally blank"
+*End
+*PageSize Executive/Executive (7.25 x 10.5"): "%%Intentionally blank"
+*End
+*PageSize FanFoldGermanLegal/8.5 x 13": "%%Intentionally blank"
+*End
+*PageSize A4/A4 (210 x 297 mm): "%%Intentionally blank"
+*End
+*PageSize A3/A3 (297 x 420 mm): "%%Intentionally blank"
+*End
+*PageSize A5/A5 (148 x 210 mm): "%%Intentionally blank"
+*End
+*PageSize JISB4/JIS B4 (257 x 364 mm): "%%Intentionally blank"
+*End
+*PageSize JISB5/JIS B5 (182 x 257 mm): "%%Intentionally blank"
+*End
+*PageSize EnvC5/C5 Envelope (162 x 229 mm): "%%Intentionally blank"
+*End
+*PageSize EnvMonarch/Monarch Envelope (3.9 x 7.5"): "%%Intentionally blank"
+*End
+*PageSize Env10/No. 10 Envelope (4.1 x 9.5"): "%%Intentionally blank"
+*End
+*PageSize EnvDL/DL Envelope (110 x 220 mm): "%%Intentionally blank"
+*End
+*CloseUI: *PageSize
+
+*%*% === Page Region ===
+*OpenUI *PageRegion/Page Region: PickOne
+*OrderDependency: 48.0 AnySetup *PageRegion
+*DefaultPageRegion: Letter
+*PageRegion Letter/Letter (8.5 x 11"): "%%Intentionally blank"
+*End
+*PageRegion Legal/Legal (8.5 x 14"): "%%Intentionally blank"
+*End
+*PageRegion Tabloid/Tabloid (11 x 17"): "%%Intentionally blank"
+*End
+*PageRegion Statement/Statement (5.5 x 8.5"): "%%Intentionally blank"
+*End
+*PageRegion Executive/Executive (7.25 x 10.5"): "%%Intentionally blank"
+*End
+*PageRegion FanFoldGermanLegal/8.5 x 13": "%%Intentionally blank"
+*End
+*PageRegion A4/A4 (210 x 297 mm): "%%Intentionally blank"
+*End
+*PageRegion A3/A3 (297 x 420 mm): "%%Intentionally blank"
+*End
+*PageRegion A5/A5 (148 x 210 mm): "%%Intentionally blank"
+*End
+*PageRegion JISB4/JIS B4 (257 x 364 mm): "%%Intentionally blank"
+*End
+*PageRegion JISB5/JIS B5 (182 x 257 mm): "%%Intentionally blank"
+*End
+*PageRegion EnvC5/C5 Envelope (162 x 229 mm): "%%Intentionally blank"
+*End
+*PageRegion EnvMonarch/Monarch Envelope (3.9 x 7.5"): "%%Intentionally blank"
+*End
+*PageRegion Env10/No. 10 Envelope (4.1 x 9.5"): "%%Intentionally blank"
+*End
+*PageRegion EnvDL/DL Envelope (110 x 220 mm): "%%Intentionally blank"
+*End
+*CloseUI: *PageRegion
+
+*% === Imageable Area ===
+*DefaultImageableArea: Letter
+*ImageableArea Letter/Letter (8.5 x 11"): "0 0 612 792"
+*ImageableArea Legal/Legal (8.5 x 14"): "0 0 612 1008"
+*ImageableArea Tabloid/Tabloid (11 x 17"): "0 0 792 1224"
+*ImageableArea Statement/Statement (5.5 x 8.5"): "0 0 396 612"
+*ImageableArea Executive/Executive (7.25 x 10.5"): "0 0 522 756"
+*ImageableArea FanFoldGermanLegal/8.5 x 13": "0 0 612 936"
+*ImageableArea A4/A4 (210 x 297 mm): "0 0 595 842"
+*ImageableArea A3/A3 (297 x 420 mm): "0 0 842 1191"
+*ImageableArea A5/A5 (148 x 210 mm): "0 0 420 595"
+*ImageableArea JISB4/JIS B4 (257 x 364 mm): "0 0 729 1032"
+*ImageableArea JISB5/JIS B5 (182 x 257 mm): "0 0 516 729"
+*ImageableArea EnvC5/C5 Envelope (162 x 229 mm): "0 0 459 649"
+*ImageableArea EnvMonarch/Monarch Envelope (3.9 x 7.5"): "0 0 279 540"
+*ImageableArea Env10/No. 10 Envelope (4.1 x 9.5"): "0 0 297 684"
+*ImageableArea EnvDL/DL Envelope (110 x 220 mm): "0 0 312 624"
+
+*% === Paper Dimension ===
+*DefaultPaperDimension: Letter
+*PaperDimension Letter/Letter (8.5 x 11"): "612 792"
+*PaperDimension Legal/Legal (8.5 x 14"): "612 1008"
+*PaperDimension Tabloid/Tabloid (11 x 17"): "792 1224"
+*PaperDimension Statement/Statement (5.5 x 8.5"): "396 612"
+*PaperDimension Executive/Executive (7.25 x 10.5"): "522 756"
+*PaperDimension FanFoldGermanLegal/8.5 x 13": "612 936"
+*PaperDimension A4/A4 (210 x 297 mm): "595 842"
+*PaperDimension A3/A3 (297 x 420 mm): "842 1191"
+*PaperDimension A5/A5 (148 x 210 mm): "420 595"
+*PaperDimension JISB4/JIS B4 (257 x 364 mm): "729 1032"
+*PaperDimension JISB5/JIS B5 (182 x 257 mm): "516 729"
+*PaperDimension EnvC5/C5 Envelope (162 x 229 mm): "459 649"
+*PaperDimension EnvMonarch/Monarch Envelope (3.9 x 7.5"): "279 540"
+*PaperDimension Env10/No. 10 Envelope (4.1 x 9.5"): "297 684"
+*PaperDimension EnvDL/DL Envelope (110 x 220 mm): "312 624"
+
+*%
+*% === Duplex ===
+*%
+*OpenUI *Duplex/_Duplex_: PickOne
+*OrderDependency: 50.0 AnySetup *Duplex
+*DefaultDuplex: None
+*Duplex None/_Simplex_: "
+%Intentionally null"
+*End
+*Duplex DuplexNoTumble/_Duplex_: "
+%Intentionally null"
+*End
+*Duplex DuplexTumble/_DuplexTumble_: "
+%Intentionally null"
+*End
+*CloseUI: *Duplex
+
+*%
+*% === Resolution ===
+*%
+*OpenUI *Resolution/_Resolution_: PickOne
+*OrderDependency: 40.0 AnySetup *Resolution
+*DefaultResolution: 600x600dpi 
+*Resolution 200x200dpi/_200dpi_: "
+%Intentionally null"
+*End
+*Resolution 300x300dpi/_300dpi_: "
+%Intentionally null"
+*End
+*Resolution 400x200dpi/$400_x_200dpi$: "
+%Intentionally null"
+*End
+*Resolution 400x400dpi/_400dpi_: "
+%Intentionally null"
+*End
+*Resolution 600x600dpi/_600dpi_: "
+%Intentionally null" 
+*End
+*Resolution 600x1200dpi/_600_x_1200dpi_: "
+%Intentionally null" 
+*End
+*Resolution 1200x600dpi/_1200_x_600dpi_: "
+%Intentionally null" 
+*End
+*Resolution 1200x1200dpi/_1200dpi_: "
+%Intentionally null" 
+*End
+*Resolution 1800x1800dpi/_1800dpi_: "
+%Intentionally null" 
+*End
+*Resolution 2400x2400dpi/_2400dpi_: "
+%Intentionally null" 
+*End
+*CloseUI: *Resolution
+
+	
+	
+
+*DefaultFont: Courier
+*Font AlbertusMT: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Italic: Standard "(001.001)" Standard ROM
+*Font AlbertusMT-Light: Standard "(001.001)" Standard ROM
+*Font AntiqueOlive-Roman: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Italic: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Bold: Standard "(001.002)" Standard ROM
+*Font AntiqueOlive-Compact: Standard "(001.002)" Standard ROM
+*Font Apple-Chancery: Standard "(001.002)" ExtendedRoman ROM
+*Font ArialMT: Standard "(001.002)" Standard ROM
+*Font Arial-ItalicMT: Standard "(001.002)" Standard ROM
+*Font Arial-BoldMT: Standard "(001.002)" Standard ROM
+*Font Arial-BoldItalicMT: Standard "(001.002)" Standard ROM
+*Font AvantGarde-Book: Standard "(003.000)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(003.000)" Standard ROM
+*Font AvantGarde-Demi: Standard "(003.000)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(003.000)" Standard ROM
+*Font Bodoni: Standard "(001.003)" Standard ROM
+*Font Bodoni-Italic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Bold: Standard "(001.003)" Standard ROM
+*Font Bodoni-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Bodoni-Poster: Standard "(001.003)" Standard ROM
+*Font Bodoni-PosterCompressed: Standard "(001.002)" Standard ROM
+*Font Bookman-Light: Standard "(003.000)" Standard ROM
+*Font Bookman-LightItalic: Standard "(003.000)" Standard ROM
+*Font Bookman-Demi: Standard "(003.000)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(003.000)" Standard ROM
+*Font Carta: Special "(001.001)" Special ROM
+*Font Chicago: Standard "(001.000)" ExtendedRoman ROM
+*Font Clarendon: Standard "(001.002)" Standard ROM
+*Font Clarendon-Light: Standard "(001.002)" Standard ROM
+*Font Clarendon-Bold: Standard "(001.002)" Standard ROM
+*Font CooperBlack: Standard "(001.004)" Standard ROM
+*Font CooperBlack-Italic: Standard "(001.004)" Standard ROM
+*Font Copperplate-ThirtyTwoBC: Standard "(001.003)" Standard ROM
+*Font Copperplate-ThirtyThreeBC: Standard "(001.003)" Standard ROM
+*Font Coronet-Regular: Standard "(001.001)" Standard ROM
+*Font Courier: Standard "(004.000)" Standard ROM
+*Font Courier-Oblique: Standard "(004.000)" Standard ROM
+*Font Courier-Bold: Standard "(004.000)" Standard ROM
+*Font Courier-BoldOblique: Standard "(004.000)" Standard ROM
+*Font Eurostile: Standard "(001.003)" Standard ROM
+*Font Eurostile-Bold: Standard "(001.002)" Standard ROM
+*Font Eurostile-ExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Eurostile-BoldExtendedTwo: Standard "(001.003)" Standard ROM
+*Font Geneva: Standard "(001.000)" ExtendedRoman ROM
+*Font GillSans: Standard "(001.003)" Standard ROM
+*Font GillSans-Italic: Standard "(001.003)" Standard ROM
+*Font GillSans-Bold: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldItalic: Standard "(001.003)" Standard ROM
+*Font GillSans-Condensed: Standard "(001.002)" Standard ROM
+*Font GillSans-BoldCondensed: Standard "(001.002)" Standard ROM
+*Font GillSans-Light: Standard "(001.002)" Standard ROM
+*Font GillSans-LightItalic: Standard "(001.003)" Standard ROM
+*Font GillSans-ExtraBold: Standard "(001.002)" Standard ROM
+*Font Goudy: Standard "(001.004)" Standard ROM
+*Font Goudy-Italic: Standard "(001.003)" Standard ROM
+*Font Goudy-Bold: Standard "(001.003)" Standard ROM
+*Font Goudy-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Goudy-ExtraBold: Standard "(001.002)" Standard ROM
+*Font Helvetica: Standard "(003.000)" Standard ROM
+*Font Helvetica-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Condensed-BoldObl: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(003.000)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(003.000)" Standard ROM
+*Font HoeflerText-Regular: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Italic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Black: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-BlackItalic: Standard "(001.000)" ExtendedRoman ROM
+*Font HoeflerText-Ornaments: Standard "(001.001)" Standard ROM
+*Font JoannaMT: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Italic: Standard "(001.001)" Standard ROM
+*Font JoannaMT-Bold: Standard "(001.001)" Standard ROM
+*Font JoannaMT-BoldItalic: Standard "(001.001)" Standard ROM
+*Font LetterGothic: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Slanted: Standard "(001.005)" Standard ROM
+*Font LetterGothic-Bold: Standard "(001.007)" Standard ROM
+*Font LetterGothic-BoldSlanted: Standard "(001.006)" Standard ROM
+*Font LubalinGraph-Book: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-BookOblique: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-Demi: Standard "(001.004)" Standard ROM
+*Font LubalinGraph-DemiOblique: Standard "(001.004)" Standard ROM
+*Font Marigold: Standard "(001.001)" Standard ROM
+*Font Monaco: Standard "(001.000)" ExtendedRoman ROM
+*Font MonaLisa-Recut: Standard "(001.001)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(003.000)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(003.000)" Standard ROM
+*Font NewYork: Standard "(001.000)" Standard ROM
+*Font Optima: Standard "(001.006)" Standard ROM
+*Font Optima-Italic: Standard "(001.001)" Standard ROM
+*Font Optima-Bold: Standard "(001.007)" Standard ROM
+*Font Optima-BoldItalic: Standard "(001.001)" Standard ROM
+*Font Oxford: Standard "(001.001)" Standard ROM
+*Font Palatino-Roman: Standard "(003.000)" Standard ROM
+*Font Palatino-Italic: Standard "(003.000)" Standard ROM
+*Font Palatino-Bold: Standard "(003.000)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(003.000)" Standard ROM
+*Font StempelGaramond-Roman: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Italic: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-Bold: Standard "(001.003)" Standard ROM
+*Font StempelGaramond-BoldItalic: Standard "(001.003)" Standard ROM
+*Font Symbol: Special "(001.008)" Special ROM
+*Font Tekton: Standard "(001.002)" Standard ROM
+*Font TimesNewRomanPSMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-ItalicMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-BoldMT: Standard "(001.003)" Standard ROM
+*Font TimesNewRomanPS-BoldItalicMT: Standard "(001.003)" Standard ROM
+*Font Times-Roman: Standard "(003.000)" Standard ROM
+*Font Times-Italic: Standard "(003.000)" Standard ROM
+*Font Times-Bold: Standard "(003.000)" Standard ROM
+*Font Times-BoldItalic: Standard "(003.000)" Standard ROM
+*Font Univers: Standard "(001.004)" Standard ROM
+*Font Univers-Oblique: Standard "(001.004)" Standard ROM
+*Font Univers-Bold: Standard "(001.004)" Standard ROM
+*Font Univers-BoldOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Light: Standard "(001.004)" Standard ROM
+*Font Univers-LightOblique: Standard "(001.004)" Standard ROM
+*Font Univers-Condensed: Standard "(001.003)" Standard ROM
+*Font Univers-CondensedOblique: Standard "(001.003)" Standard ROM
+*Font Univers-CondensedBold: Standard "(001.002)" Standard ROM
+*Font Univers-CondensedBoldOblique: Standard "(001.002)" Standard ROM
+*Font Univers-Extended: Standard "(001.001)" Standard ROM
+*Font Univers-ExtendedObl: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExt: Standard "(001.001)" Standard ROM
+*Font Univers-BoldExtObl: Standard "(001.001)" Standard ROM
+*Font Wingdings-Regular: Special "(002.000)" Special ROM
+*Font ZapfChancery-MediumItalic: Standard "(003.000)" Standard ROM
+*Font ZapfDingbats: Special "(002.000)" Special ROM
+
+	
+
+*% End of PPD

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="*"
+             Name="Xerox Flow Printer"
+             Language="1033"
+             Version="1.0.0.0"
+             Manufacturer="Xerox"
+             UpgradeCode="A28F58B1-3E2A-4D7F-8113-64B07B55416B">
+
+        <Package InstallerVersion="300"
+                 Compressed="yes"
+                 InstallScope="perMachine"
+                 Platform="x64"
+                 Description="Xerox Flow Printer Driver &amp; Configuration Installer" />
+
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <MediaTemplate EmbedCab="yes" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="CompanyFolder" Name="Xerox">
+                    <Directory Id="INSTALLFOLDER" Name="Xerox_flow_Printer">
+                        <Directory Id="DRIVERDIR" Name="driver" />
+                        <Directory Id="SETTINGSDIR" Name="PrinterSettings" />
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+
+        <DirectoryRef Id="INSTALLFOLDER">
+            <Component Id="cmp_Scripts" Guid="{B19B2EE3-06D5-4299-9FD2-793392E5B94B}">
+                <File Id="fil_run_ps1" Source="run.ps1" KeyPath="yes" />
+                <File Id="fil_uninstall_ps1" Source="uninstall.ps1" />
+            </Component>
+        </DirectoryRef>
+
+        <Feature Id="ProductFeature" Title="Xerox Printer" Level="1">
+            <ComponentRef Id="cmp_Scripts" />
+            <ComponentGroupRef Id="DriverFiles" />
+            <ComponentGroupRef Id="SettingsFiles" />
+        </Feature>
+
+        <!-- Custom Action to Run Install Script on Install (Deferred, Elevated as System) -->
+        <CustomAction Id="RunInstallScript"
+                      Directory="INSTALLFOLDER"
+                      ExeCommand="&quot;[WindowsFolder]System32\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Bypass -NoProfile -NonInteractive -WindowStyle Hidden -File &quot;[#fil_run_ps1]&quot;"
+                      Execute="deferred"
+                      Impersonate="no"
+                      Return="check" />
+
+        <!-- Custom Action to Run Uninstall Script on Uninstall (Deferred, Elevated as System) -->
+        <CustomAction Id="RunUninstallScript"
+                      Directory="INSTALLFOLDER"
+                      ExeCommand="&quot;[WindowsFolder]System32\WindowsPowerShell\v1.0\powershell.exe&quot; -ExecutionPolicy Bypass -NoProfile -NonInteractive -WindowStyle Hidden -File &quot;[#fil_uninstall_ps1]&quot;"
+                      Execute="deferred"
+                      Impersonate="no"
+                      Return="ignore" />
+
+        <InstallExecuteSequence>
+            <Custom Action="RunInstallScript" After="InstallFiles">
+                NOT Installed AND NOT REMOVE
+            </Custom>
+            <Custom Action="RunUninstallScript" Before="RemoveFiles">
+                (Installed OR UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")
+            </Custom>
+        </InstallExecuteSequence>
+    </Product>
+</Wix>

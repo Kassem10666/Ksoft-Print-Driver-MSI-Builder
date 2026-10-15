@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="SETTINGSDIR">
+            <Component Id="cmp7B8A7621DA9055E1F42020C5C932A864" Guid="{74FE2744-6CD5-4E36-88A0-63B62E0FC244}">
+                <File Id="fil07C831E08F7E3E6EA0BFDBF67F48EF18" KeyPath="yes" Source="$(var.SettingsDir)\PrinterSettings.dat" />
+            </Component>
+            <Component Id="cmpBE1186A524FBFFF28DAEA0F854DE5FD5" Guid="{B341A508-98DC-4EC1-9036-E8B8EA363E30}">
+                <File Id="fil308CCE8CDCE3C64E11290B3AC307B15E" KeyPath="yes" Source="$(var.SettingsDir)\PrinterSettings.xml" />
+            </Component>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="SettingsFiles">
+            <ComponentRef Id="cmp7B8A7621DA9055E1F42020C5C932A864" />
+            <ComponentRef Id="cmpBE1186A524FBFFF28DAEA0F854DE5FD5" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

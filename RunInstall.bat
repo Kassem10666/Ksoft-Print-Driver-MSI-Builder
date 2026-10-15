@@ -1,0 +1,1 @@
+powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -NoProfile -File "%~dp0run.ps1"
