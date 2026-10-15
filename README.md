@@ -3,11 +3,7 @@
 An enterprise-grade desktop tool and automated build engine designed to convert Xerox (and other vendor) printer drivers, network ports, and saved print configurations into fully silent, standalone **MSI installation packages**
 
 
-<img width="617" height="626" alt="image" src="https://github.com/user-attachments/assets/dd208163-4eb3-4a1d-89f6-dd447e60d373" />
-
-<img width="647" height="447" alt="image" src="https://github.com/user-attachments/assets/73d3d5f4-b89c-4697-b4a2-e1bc3b1d4e8a" />
-
-<img width="641" height="442" alt="image" src="https://github.com/user-attachments/assets/4b990161-8617-4de5-b3d8-84d3745ed897" />
+<img width="617" height="626" alt="image" src="https://github.com/user-attachments/assets/dd208163-4eb3-4a1d-89f6-dd447e60d373" /> <img width="647" height="447" alt="image" src="https://github.com/user-attachments/assets/73d3d5f4-b89c-4697-b4a2-e1bc3b1d4e8a" /> <img width="641" height="442" alt="image" src="https://github.com/user-attachments/assets/4b990161-8617-4de5-b3d8-84d3745ed897" />
 
 
 
